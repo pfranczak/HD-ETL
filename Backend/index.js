@@ -30,8 +30,13 @@ function getOfferData ($) {
     return offerData;
 }
 
-async function start() {
-    const html = await getHTML('https://bulldogjob.pl/companies/jobs/s/skills,JavaScript');
+function getNextPage($) {
+    const nextPage = $('.next[rel="next"]').attr('href');
+    return nextPage ? `https://bulldogjob.pl${$('.next[rel="next"]').attr('href')}` : null;
+}
+
+async function getDataFromUrl (url) {
+    const html = await getHTML(url);
     const $ = cheerio.load(html);
     const tags = $('.results-list.content .results-list-item');
     const offerData = [];
@@ -40,7 +45,18 @@ async function start() {
         offerData.push(getOfferData($(tags[i])));
     }
 
-    console.log(offerData);
+    const nextPageUrl = getNextPage($);
+
+    if (nextPageUrl) {
+       return offerData.concat(await getDataFromUrl(nextPageUrl));
+    } else {
+        return offerData;
+    }
+};
+
+async function start() {
+    const offerData = await getDataFromUrl('https://bulldogjob.pl/companies/jobs/s/skills,JavaScript');
+    console.log(offerData.length);
 }
 
 start();
