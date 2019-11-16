@@ -18,7 +18,8 @@ const columns = [{
   text: 'Product Price',
   sort: true,
 }];
-function Table() {
+function Table({ data }) {
+  console.log(data);
   return (
     <BootstrapTable bootstrap4 keyField='id' data={ products } columns={ columns } />
   );
