@@ -1,11 +1,23 @@
-import React from 'react';
+import React  from 'react';
 import axios from 'axios';
 import Extract from './Extract'
+import ETL from './ETL'
+import Load from './Load'
 
 const API_URL = 'http://localhost:3001';
 
 const extractData = () => {
   return axios.post(`${API_URL}/extract`)
+    .then(res => res.data);
+};
+
+const transformData = () => {
+  return axios.post(`${API_URL}/transformed`)
+    .then(res => res.data);
+};
+
+const getTransformed = () => {
+  return axios.get(`${API_URL}/transformed`)
     .then(res => res.data);
 };
 
@@ -15,7 +27,8 @@ function App() {
       width: '100%',
       height: '100%'
     }}>
-      <Extract extractData={extractData}/>
+
+     <ETL getTransformed={getTransformed} extractData={extractData} transformData={transformData}/>
     </div>
   );
 }
