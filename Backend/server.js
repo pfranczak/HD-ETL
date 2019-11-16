@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import database from "./database";
 import {
   getDataFromUrl,
@@ -12,11 +13,12 @@ const main = async () => {
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(cors())
 
   app.post("/extract", async function(req, res) {
     const extractedData = await getDataFromUrl();
     await database.insertExtracted(extractedData.map(url => ({url})));
-    res.send(200);
+    res.send({ extractedAmount: extractedData.length });
   });
 
   app.post("/transformed", async function(req, res) {
@@ -35,7 +37,7 @@ const main = async () => {
   app.get("/transformed", async function(req, res) {
   });
 
-  const server = app.listen(3000, function () {
+  const server = app.listen(3001, function () {
     console.log("app running on port.", server.address().port);
   });
 };
