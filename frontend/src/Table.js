@@ -4,24 +4,44 @@ import BootstrapTable from 'react-bootstrap-table-next';
 
 
 
-const products = [ {name: 'dupa', id: 'dupa3', price: 10},  {name: 'dupa', id: 'dupa2', price: 11},  {name: 'dupa', id: 'dupa1', price: 12} ];
 const columns = [{
-  dataField: 'id',
-  text: 'Product ID',
+  dataField: 'city',
+  text: 'Cities',
   sort: true,
 }, {
-  dataField: 'name',
-  text: 'Product Name',
+  dataField: 'company',
+  text: 'Company Name',
   sort: true,
 }, {
-  dataField: 'price',
-  text: 'Product Price',
+  dataField: 'currency',
+  text: 'Currency',
   sort: true,
-}];
+}, {
+  dataField: 'date',
+  text: 'Date',
+  sort: true,
+}, {
+  dataField: 'position',
+  text: 'Position',
+  sort: true,
+}, {
+  dataField: 'salaryLow',
+  text: 'Salary Low',
+  sort: true,
+}, {
+  dataField: 'salaryTop',
+  text: 'Salary High',
+  sort: true,
+}, {
+  dataField: 'tags',
+  text: 'Tags',
+  sort: true,
+},
+];
 function Table({ data }) {
-  console.log(data);
+  const transData = data.data.map(ele => ({...ele, city: ele.city.join(','), tags: ele.tags.join(',')}));
   return (
-    <BootstrapTable bootstrap4 keyField='id' data={ products } columns={ columns } />
+    <BootstrapTable bootstrap4 keyField='id' data={ transData } columns={ columns } />
   );
 }
 

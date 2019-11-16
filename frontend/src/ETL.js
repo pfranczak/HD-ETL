@@ -22,6 +22,7 @@ export default ({extractData, transformData, getTransformed}) => {
           await extractData();
           await transformData();
           const data = await getTransformed();
+          setLoading(false)
           setData(data)
         }}
       >

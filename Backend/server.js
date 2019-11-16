@@ -30,11 +30,11 @@ const main = async () => {
       if (Object.values(data).filter((value) => value != false).length !== 0) {
         return data;
       }
-    });
+    }).filter(ele => ele !== undefined);
 
     await database.clearExtracted();
     await database.insertTransformed(transformedData);
-  
+
     res.send(200);
   });
 
@@ -45,6 +45,8 @@ const main = async () => {
   });
 
   app.get("/transformed", async function(req, res) {
+    const data = await database.getTransformed();
+    res.send({ data })
   });
 
   const server = app.listen(3001, function () {
