@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import Extract from './Extract'
+
+const API_URL = 'http://localhost:3001';
+
+const extractData = () => {
+  return axios.post(`${API_URL}/extract`)
+    .then(res => res.data);
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{
+      width: '100%',
+      height: '100%'
+    }}>
+      <Extract extractData={extractData}/>
     </div>
   );
 }
