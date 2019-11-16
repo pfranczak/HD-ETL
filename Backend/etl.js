@@ -8,7 +8,8 @@ async function getHTML(url) {
     return data;
 }
 
-function getOfferData($) {
+function getOfferData(html) {
+    const $ = cheerio.load(html);
     const SELECTORS = {
         position: '.result-header-name',
         company: '.result-desc-meta .pop-black',
@@ -21,15 +22,30 @@ function getOfferData($) {
     const offerData = [];
 
     Object.keys(SELECTORS).forEach((key) => {
-        const selectorText = $.find(SELECTORS[key]).text();
+        const selectorText = $(SELECTORS[key]).text();
+ 
+        if (key === 'salary') {
+            const salary = selectorText.replace(/\n|Od|/g, '').split('-');
+            let salaryTopWithCurrency = '';
+            let currency = '';
+            let salaryTop = '';
+            offerData.salaryLow = salary[0].trim();
 
-        if (key !== 'tags') {
+            if (salary[1]) {
+                salaryTopWithCurrency = salary[1].trim().split(' ');
+                currency = salaryTopWithCurrency.pop();
+                salaryTop = salaryTopWithCurrency.join(' ');
+            }
+
+            offerData.salaryTop = salaryTop;
+            offerData.currency = currency;
+        } else if (key === 'city') {
+            offerData[key] = selectorText.replace(/\n/g, '').split(',');
+        } else if (key !== 'tags') {
             offerData[key] = selectorText.replace(/\n/g, '');
         } else {
             offerData[key] = selectorText.replace(/\n{2,}/g, ';').split(';').slice(1, -1);
         }
-
-        offerData.push();
     });
 
     return offerData;
@@ -60,5 +76,6 @@ async function getDataFromUrl(url = URL) {
 };
 
 export {
-    getDataFromUrl
+    getDataFromUrl,
+    getOfferData
 };

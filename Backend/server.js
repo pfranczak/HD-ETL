@@ -1,7 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import database from "./database";
-import {getDataFromUrl} from "./etl";
+import {
+  getDataFromUrl,
+  getOfferData
+} from "./etl";
 
 const main = async () => {
   await database.init();
@@ -17,6 +20,10 @@ const main = async () => {
   });
 
   app.post("/transformed", async function(req, res) {
+    const extractedData = await database.getExtracted();
+    const transformedData = extractedData.map(({url}) => getOfferData(url));
+    await database.insertTransformed(transformedData);
+    res.send(200);
   });
 
   app.delete("/transformed", async function(req, res) {
