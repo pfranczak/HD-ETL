@@ -23,8 +23,18 @@ const main = async () => {
 
   app.post("/transformed", async function(req, res) {
     const extractedData = await database.getExtracted();
-    const transformedData = extractedData.map(({url}) => getOfferData(url));
+    await database.clearTransformed();
+
+    const transformedData = extractedData.map(({url}) => {
+      const data = getOfferData(url);
+      if (Object.values(data).filter((value) => value != false).length !== 0) {
+        return data;
+      }
+    });
+
+    await database.clearExtracted();
     await database.insertTransformed(transformedData);
+  
     res.send(200);
   });
 

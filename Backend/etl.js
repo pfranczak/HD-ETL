@@ -19,7 +19,7 @@ function getOfferData(html) {
         tags: '.tags'
     }
 
-    const offerData = [];
+    const offerData = {};
 
     Object.keys(SELECTORS).forEach((key) => {
         const selectorText = $(SELECTORS[key]).text();
