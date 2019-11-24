@@ -22,3 +22,27 @@ code {
   width: 100%;
   height: 100%;
 }
+
+.table.table-bordered thead{
+  display: table;
+  width: calc(100vw - 37px);
+  table-layout: fixed;
+}
+
+.table.table-bordered tbody {
+  display: block !important;
+  width: calc(100vw - 37px);
+}
+
+.table.table-bordered tbody:nth-of-type(2) {
+  display: block;
+  height: calc(100vh - 238px);
+  overflow-y: scroll;
+  width: calc(100vw - 20px);
+}
+
+.table.table-bordered tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
