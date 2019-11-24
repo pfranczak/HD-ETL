@@ -62,17 +62,14 @@ function App() {
         </nav>
         <Switch>
           <Route path="/etl">
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
+            <div className="etl-container">
               <ETL getTransformed={getTransformed} extractData={extractData} transformData={transformData}/>
             </div>
           </Route>
           <Route path="/steps">
-            <div>duap</div>
+            <div className="etl-container">
+              <Extract extractData={extractData}/>
+            </div>
           </Route>
         </Switch>
       </div>

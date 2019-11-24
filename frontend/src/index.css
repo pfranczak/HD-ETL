@@ -46,3 +46,10 @@ code {
   width:100%;
   table-layout:fixed;
 }
+
+.etl-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
