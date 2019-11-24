@@ -8,15 +8,14 @@ export default ({extractData, transformData, getTransformed}) => {
   const [loading, setLoading] = useState(false);
 
   if(loading) {
-    return <Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>
+    return <Spinner size="lg" animation="border" variant="primary" />
   }
 
   if(data === null) {
     return (
       <Button
         variant="primary"
+        size={'lg'}
         onClick={async () => {
           setLoading(true);
           await extractData();
