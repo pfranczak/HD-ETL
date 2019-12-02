@@ -63,7 +63,7 @@ function Table({ data }) {
       {
         props => (
           <div>
-            <Button onClick={() => props.csvProps.onExport()} variant="primary">Export CSV</Button>
+            <Button style={{display: 'block', margin: '0 auto'}} onClick={() => props.csvProps.onExport()} variant="primary">Export CSV</Button>
             <BootstrapTable bootstrap4 {...props.baseProps} filter={ filterFactory() } filterPosition={'top'}/>
           </div>
         )

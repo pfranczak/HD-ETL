@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 
-export default ({ extractData }) => {
+export default ({ extractData, nextStep }) => {
   const [response, setResponse] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -15,12 +15,10 @@ export default ({ extractData }) => {
 
   return (
     <div style={{
-      width: '100%',
-      height: '100%',
-      justifyContent: 'center',
-      alignItems: 'center',
-      display: 'flex',
-      flexDirection: 'column'
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'column'
     }}>
       <Button variant="primary"
               onClick={extract}
@@ -35,6 +33,7 @@ export default ({ extractData }) => {
       {response && <>
         <h3>Extracting succeeded.</h3>
         <h4>Extracted <span style={{color: '#007bff'}}>{response.extractedAmount}</span> items.</h4>
+        <Button variant="info" onClick={nextStep}>Next step</Button>
       </>}
     </div>
   )

@@ -7,9 +7,8 @@ import {
   Link, NavLink
 } from "react-router-dom";
 import c from 'classnames';
-import Extract from './Extract'
-import ETL from './ETL'
-import Load from './Load'
+import Steps from './Steps'
+import ETL from './ETL';
 import './App.css'
 
 const API_URL = 'http://localhost:3001';
@@ -68,7 +67,7 @@ function App() {
           </Route>
           <Route path="/steps">
             <div className="etl-container">
-              <Extract extractData={extractData}/>
+              <Steps getTransformed={getTransformed} extractData={extractData} transformData={transformData}/>
             </div>
           </Route>
         </Switch>
