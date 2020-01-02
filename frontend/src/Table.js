@@ -9,6 +9,30 @@ import {Button} from "react-bootstrap";
 
 
 
+function download(filename, text) {
+  const element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+
+const jsonToCsv = (items) => {
+  const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+  const header = Object.keys(items[0])
+  let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+  csv.unshift(header.join(','))
+  csv = csv.join('\r\n')
+  
+  return csv
+}
+
 const columns = [{
   dataField: 'city',
   text: 'Cities',
@@ -49,6 +73,19 @@ const columns = [{
   text: 'Tags',
   sort: true,
   filter: textFilter()
+},
+{
+  dataField: 'export',
+  text: 'Export',
+  events: {
+    onClick: (e, column, columnIndex, row, rowIndex) => {
+      download('offer.csv', jsonToCsv([row]))
+    },
+  },
+  attrs: {
+    class: 'export-cell',
+  },
+  formatter: () => <span>Export</span>
 },
 ];
 function Table({ data }) {

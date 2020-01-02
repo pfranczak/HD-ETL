@@ -53,3 +53,15 @@ code {
   justify-content: center;
   align-items: center;
 }
+
+
+.export-cell span {
+  cursor:pointer;
+  color:blue;
+  text-decoration:underline;
+} 
+
+.export-cell span:hover {
+  text-decoration:none;
+  text-shadow: 1px 1px 1px #555;
+} 
