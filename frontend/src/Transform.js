@@ -33,7 +33,7 @@ export default ({ transformData, nextStep }) => {
       </>}
       {response && <>
         <h3>Transforming succeeded.</h3>
-        <h4>Transformed <span style={{color: '#007bff'}}>{response.extractedAmount || 0}</span> items.</h4>
+        <h4>Transformed <span style={{color: '#007bff'}}>{response.transformed || 0}</span> items.</h4>
         <Button variant="info" onClick={nextStep}>Next step</Button>
       </>}
     </div>

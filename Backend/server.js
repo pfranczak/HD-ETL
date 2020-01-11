@@ -13,7 +13,7 @@ const main = async () => {
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(cors())
+  app.use(cors());
 
   app.post("/extract", async function(req, res) {
     const extractedData = await getDataFromUrl();
@@ -35,7 +35,7 @@ const main = async () => {
     await database.clearExtracted();
     await database.insertTransformed(transformedData);
 
-    res.send(200);
+    res.send({ transformed:  transformedData.length});
   });
 
   app.delete("/transformed", async function(req, res) {
